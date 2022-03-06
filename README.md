@@ -100,3 +100,6 @@
 ![](http://cdn.jsdelivr.net/gh/MaoYuanxing/imgbed/20220306201537.png)
 ![](http://cdn.jsdelivr.net/gh/MaoYuanxing/imgbed/20220306201817.png)
 ![](http://cdn.jsdelivr.net/gh/MaoYuanxing/imgbed/20220306202045.png)
+
+
+三原色静
