@@ -1,5 +1,3 @@
-# clearn
-
 ## ELF(Executable and Linkable Format) 现代计算机一种重要的二进制格式
 
 当我们在命令行终端执行./a.out 加载这种格式的文件就是调用execve()，从而进入内核空间，这个函数会调用search_binary_handler(), 后者会调用load_elf_binary()
@@ -102,4 +100,18 @@
 ![](http://cdn.jsdelivr.net/gh/MaoYuanxing/imgbed/20220306202045.png)
 
 
-三原色静
+## 三原色静态库
+ gcc -c primary_additive.c
+ gcc -c primary_subtractive.c
+ 生成对象：
+ primary_additive.o  primary_subtractive.o
+ 下面的命令用来生成静态库
+ r cr libprimarycolors.a primary_additive.o primary_subtractive.o
+ 用下面的命令编译程序：
+ gcc -o app color_example.c -L. libprimarycolors.a 
+ 其中：
+  -L选项指定在当前目录下搜索链接库
+
+  ## 三原色的动态库
+  自行编译的动态链接库通常放在/usr/local/lib/及其子目录。为此。我们在/usr/local/lib/下新建目录lettuce，用于存放自己的链接库。
+
