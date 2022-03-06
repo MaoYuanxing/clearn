@@ -101,17 +101,48 @@
 
 
 ## 三原色静态库
- gcc -c primary_additive.c
- gcc -c primary_subtractive.c
+ > gcc -c primary_additive.c
+ >gcc -c primary_subtractive.c
+ 
+ 
  生成对象：
- primary_additive.o  primary_subtractive.o
+ >primary_additive.o  >primary_subtractive.o
+
+
  下面的命令用来生成静态库
- r cr libprimarycolors.a primary_additive.o primary_subtractive.o
+ >ar cr libprimarycolors.a primary_additive.o primary_subtractive.o
+ 
+ 
  用下面的命令编译程序：
- gcc -o app color_example.c -L. libprimarycolors.a 
+ >gcc -o app color_example.c -L. libprimarycolors.a 
+ 
+ 
  其中：
   -L选项指定在当前目录下搜索链接库
 
   ## 三原色的动态库
-  自行编译的动态链接库通常放在/usr/local/lib/及其子目录。为此。我们在/usr/local/lib/下新建目录lettuce，用于存放自己的链接库。
+  自行编译的动态链接库通常放在<b>/usr/local/lib/</b>及其子目录。为此。我们在<b>/usr/local/lib/</b>下新建目录lettuce，用于存放自己的链接库。
+  >$ sudo mkdir /usr/local/lib/lettuce
+  
+  
+  用以下命令在当前目录下生成动态库：
+   >gcc -fPIC -shared -o libprimarycolors.so primary_additive.c primary_subtractive.c
+   
+   
+   然后拷贝到前面新建的目录下
+   >sudo cp libprimarycolors.so /usr/local/lib/lettuce/
+   
+   
+   用以下命令编译程序：
+   >gcc -o app color_example.c -L/usr/local/lib/lettuce/ -lprimarycolors
+   
+   
+   其中：
+   -L选项指定在/usr/local/lib/lettuce/ 目录下搜索链接库
 
+   但在运行app之前需要明确指定动态链接库的搜索位置。为此我们可以把以下的内容添加到用户目录下<b>.bashrc</b>文件的末尾，然后重新登录以加载新的配置。
+   >export LD_LIBRARY_PATH=/usr/local/lib/lettuce/:$LD_LIBRARY_PATH
+
+
+## 静态链接的细节
+当使用静态链接时，GCC会使用复制的方式将连接库中的内容连接到可执行程序。那么，是复制库中所有的内容吗
